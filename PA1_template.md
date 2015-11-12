@@ -22,9 +22,9 @@ For this part of the assignment, you can ignore the missing values in the datase
 ```r
 # Ignore records with missing value 'NA'
   # If 'NA' should be omitted
-data_clean <- na.omit(rawdata)
+  # data_clean <- na.omit(rawdata)
 # Calculate the total number of steps taken per day
-StepsPerDay <- aggregate(steps ~ date, data = data_clean, sum)
+StepsPerDay <- aggregate(steps ~ date, data = rawdata, sum)
 # Make a histogram of the total number of steps taken each day
 hist(StepsPerDay$steps, 
      xlab="Total number of steps per day",
@@ -55,7 +55,7 @@ print(sprintf("Mean of total steps: %f; Median of total steps: %i", meanSteps, m
 
 ```r
 # Calculate the average number of steps in an interval across all days
-intervalSteps <- aggregate(steps ~ interval, data = data_clean, mean)
+intervalSteps <- aggregate(steps ~ interval, data = rawdata, mean)
 
 plot(steps ~ interval, data = intervalSteps, type = "l",
      xlab = "5-minute interval",
@@ -108,11 +108,11 @@ for (i in 1:nrow(dataComplete)) {
 }
 # Confirm whether there is 0 number of missing values in the new dataset
 numNA2 <- sum(is.na(dataComplete$steps))
-print(sprintf("The total number of missing values in the new dataset is '%d'.", numNA2))
+print(sprintf("The total number of missing values in the new dataset is '%d'. If it is not '0', something's wrong.", numNA2))
 ```
 
 ```
-## [1] "The total number of missing values in the new dataset is '0'."
+## [1] "The total number of missing values in the new dataset is '0'. If it is not '0', something's wrong."
 ```
 <p>
     &ensp; 4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
@@ -138,11 +138,11 @@ meanSteps2 <- mean(StepsPerDay2$steps)
 medianSteps2 <- median(StepsPerDay2$steps)
 
 # Report the mean and median values
-print(sprintf("NA-removed dataset: Mean of total steps = %f; Median of total steps = %i", meanSteps, medianSteps))
+print(sprintf("NA-ignored dataset: Mean of total steps = %f; Median of total steps = %i", meanSteps, medianSteps))
 ```
 
 ```
-## [1] "NA-removed dataset: Mean of total steps = 10766.188679; Median of total steps = 10765"
+## [1] "NA-ignored dataset: Mean of total steps = 10766.188679; Median of total steps = 10765"
 ```
 
 ```r
